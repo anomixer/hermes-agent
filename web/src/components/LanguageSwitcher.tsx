@@ -3,12 +3,16 @@ import { useI18n } from "@/i18n/context";
 
 /**
  * Compact language toggle — shows a clickable flag that switches between
- * English and Chinese.  Persists choice to localStorage.
+ * English, Simplified Chinese, and Traditional Chinese.  Persists choice to localStorage.
  */
 export function LanguageSwitcher() {
   const { locale, setLocale, t } = useI18n();
 
-  const toggle = () => setLocale(locale === "en" ? "zh" : "en");
+  const toggle = () => {
+    if (locale === "en") setLocale("zh");
+    else if (locale === "zh") setLocale("tw");
+    else setLocale("en");
+  };
 
   return (
     <button
@@ -20,13 +24,13 @@ export function LanguageSwitcher() {
     >
       {/* Show the *current* language's flag — tooltip advertises the click action */}
       <span className="text-base leading-none">
-        {locale === "en" ? "🇬🇧" : "🇨🇳"}
+        {locale === "en" ? "🇬🇧" : locale === "zh" ? "🇨🇳" : "🇹🇼"}
       </span>
       <Typography
         mondwest
         className="hidden sm:inline tracking-wide uppercase text-[0.65rem]"
       >
-        {locale === "en" ? "EN" : "中文"}
+        {locale === "en" ? "EN" : locale === "zh" ? "简体" : "繁體"}
       </Typography>
     </button>
   );
