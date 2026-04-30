@@ -1,4 +1,4 @@
-import { Typography } from "@nous-research/ui";
+import { Button, Typography } from "@nous-research/ui";
 import { useI18n } from "@/i18n/context";
 
 /**
@@ -15,23 +15,24 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <button
-      type="button"
+    <Button
+      ghost
       onClick={toggle}
-      className="group relative inline-flex items-center gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
       title={t.language.switchTo}
       aria-label={t.language.switchTo}
+      className="px-2 py-1 normal-case tracking-normal font-normal text-xs text-muted-foreground hover:text-foreground"
     >
-      {/* Show the *current* language's flag — tooltip advertises the click action */}
-      <span className="text-base leading-none">
-        {locale === "en" ? "🇬🇧" : locale === "zh" ? "🇨🇳" : "🇹🇼"}
+      <span className="inline-flex items-center gap-1.5">
+        <span className="text-base leading-none">
+          {locale === "en" ? "🇬🇧" : locale === "zh" ? "🇨🇳" : "🇹🇼"}
+        </span>
+        <Typography
+          mondwest
+          className="hidden sm:inline tracking-wide uppercase text-[0.65rem]"
+        >
+          {locale === "en" ? "EN" : locale === "zh" ? "简体" : "繁體"}
+        </Typography>
       </span>
-      <Typography
-        mondwest
-        className="hidden sm:inline tracking-wide uppercase text-[0.65rem]"
-      >
-        {locale === "en" ? "EN" : locale === "zh" ? "简体" : "繁體"}
-      </Typography>
-    </button>
+    </Button>
   );
 }
